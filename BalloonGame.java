@@ -72,6 +72,7 @@ public class BalloonGame {
     // Fields
     Integer score = 0;
     Integer highScore = 0;
+    boolean isStart = true;
     /*# YOUR CODE HERE */
 
     public void setupGUI() {
@@ -93,6 +94,7 @@ public class BalloonGame {
      */
     public void restartGame() {
         /*# YOUR CODE HERE */
+        isStart = true;
         UI.clearGraphics();
         score = 0;
         balloons.clear();
@@ -101,10 +103,15 @@ public class BalloonGame {
 
         for (int i = 0; i < MAX_BALLOONS; i++) {
             balloons.add(new Balloon(Math.random() * 600, Math.random() * 600));
+
         }
         for (Balloon eF : balloons) {
             eF.draw();
+            balloonTouch(eF);
         }
+
+
+        isStart = false;
         calcScore();
 
 
@@ -169,9 +176,11 @@ public class BalloonGame {
         }
     }
 
+
     public void balloonTouch(Balloon other) {
         for (Balloon iF : balloons) {
             if (iF.isTouching(other) && (iF != other) && (iF.isActive() && other.isActive())) {
+
                 iF.burst();
                 other.burst();
             }
