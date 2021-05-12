@@ -163,15 +163,15 @@ public class BalloonGame {
         for (Balloon eF : balloons) {
             if (eF.on(x, y)) {
                 eF.expand();
-                balloonTouch(eF, eF.centerX, eF.centerY);
+                balloonTouch(eF);
             }
             eF.draw();
         }
     }
 
-    public void balloonTouch(Balloon other, double otherX, double otherY) {
+    public void balloonTouch(Balloon other) {
         for (Balloon iF : balloons) {
-            if (iF.isTouching(other) && (otherX != iF.centerX) && (otherY != iF.centerY) && (iF.isActive() && other.isActive())) {
+            if (iF.isTouching(other) && (iF != other) && (iF.isActive() && other.isActive())) {
                 iF.burst();
                 other.burst();
             }

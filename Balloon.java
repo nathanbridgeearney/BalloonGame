@@ -21,8 +21,8 @@ import java.io.*;
 public class Balloon{
     // Fields
     private double radius = 10;
-    public double centerX;
-    public double centerY;
+    private double centerX;
+    private double centerY;
     private Color color;
     private boolean active = true;
 
