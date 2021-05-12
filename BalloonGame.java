@@ -70,7 +70,7 @@ public class BalloonGame {
     // (initially empty)
 
     // Fields
-    Integer score = 200;
+    Integer score = 0;
     Integer highScore = 0;
     /*# YOUR CODE HERE */
 
@@ -152,8 +152,8 @@ public class BalloonGame {
 
     /*# YOUR CODE HERE */
     public void endGame() {
-        highScore = score;
         UI.clearGraphics();
+        highScore = score;
         UI.drawString("High Score: " + highScore.toString(), 100, 10);
         UI.drawString("Score: " + score.toString(), 10, 10);
         restartGame();
@@ -171,7 +171,7 @@ public class BalloonGame {
 
     public void balloonTouch(Balloon other, double otherX, double otherY) {
         for (Balloon iF : balloons) {
-            if (iF.isTouching(other) && (otherX != iF.centerX) && (otherY != iF.centerY)) {
+            if (iF.isTouching(other) && (otherX != iF.centerX) && (otherY != iF.centerY) && (iF.isActive() && other.isActive())) {
                 iF.burst();
                 other.burst();
             }
@@ -179,6 +179,7 @@ public class BalloonGame {
     }
 
     public void gameOver() {
+
         int count = MAX_BALLOONS;
         for (Balloon iF : balloons) {
             if (!iF.isActive()) {
@@ -187,8 +188,10 @@ public class BalloonGame {
         }
         if (count == 0) {
             UI.println("Game Over");
+            UI.println("Score: " + score);
         }
-        if (score > highScore) highScore = score;
+
+
     }
 
     public void balloonCreate(double v) {
